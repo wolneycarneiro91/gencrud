@@ -50,8 +50,9 @@ class CrudGeneratorCommand extends Command
         $this->controller($name);
         $this->model($name,$fields);
         $this->request($name);
-
-        File::append(base_path('routes/api.php'), 'Route::resource(\'' . Str::plural(strtolower($name)) . "', '{$name}Controller');");
+        //'App\Http\Controllers\{$name}Controller::class'
+        $nameController = $name."Controller";
+        File::append(base_path('routes/api.php'), "\n Route::resource('".Str::plural(strtolower($name))."'".str_replace(".","",",App\Http\Controllers\.$nameController.::class);"));
         Artisan::call(command: 'make:migration create_'.Str::plural(strtolower($name)).'_table --create='.Str::plural(strtolower($name)));
     }
     protected function controller($name)

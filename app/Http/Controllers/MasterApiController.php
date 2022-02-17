@@ -14,14 +14,13 @@ class MasterApiController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index()
-    {                   
-        //dd($this);
+    {                           
         $data = $this->model->all();
         return response()->json($data, 201);                
     }
     public function store(Request $request)
     {
-        $this->validate($request, $this->model->rules());   
+        $this->validate($request, $this->request->rules());   
         $dataFrom = $request->all();
         $data = $this->model->create($dataFrom);  
         return response()->json($data,201) ;

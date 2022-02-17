@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValorantRequest extends FormRequest
+class RatoRequest extends FormRequest
 {
     public function authorize()
     {
@@ -13,7 +13,6 @@ class ValorantRequest extends FormRequest
 
     public function rules()
     {
-        return [        
-        ];
+        return ['raca'=>'required'];
     }
 }

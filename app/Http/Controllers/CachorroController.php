@@ -1,41 +1,41 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Requests\{{modelName}}Request;
-use App\Models\{{modelName}};
+use App\Http\Requests\CachorroRequest;
+use App\Models\Cachorro;
 
-class {{modelName}}Controller extends Controller
+class CachorroController extends Controller
 {
-    public function __construct({{modelName}} ${{modelNameSingularLowerCase}}){
-            $this->{{modelNameSingularLowerCase}} = ${{modelNameSingularLowerCase}};        
+    public function __construct(Cachorro $cachorro){
+            $this->cachorro = $cachorro;        
     } 
     public function index()
     {                           
-        $data = $this->{{modelNameSingularLowerCase}}->all();
+        $data = $this->cachorro->all();
         return response()->json($data, 201);                
     }
-    public function store({{modelName}}Request $request)
+    public function store(CachorroRequest $request)
     {
         $this->validate($request, $request->rules());   
         $dataFrom = $request->all();
-        $data = $this->{{modelNameSingularLowerCase}}->create($dataFrom);  
+        $data = $this->cachorro->create($dataFrom);  
         return response()->json($data,201) ;
     }
     public function show($id)
     {
-        $data = $this->{{modelNameSingularLowerCase}}->find($id);
+        $data = $this->cachorro->find($id);
         if(!$data){
             return response()->json(['error'=>'Nada foi encontrado'],404) ;
         }
         return response()->json($data,201) ;
     }
-    public function update({{modelName}}Request $request, $id)
+    public function update(CachorroRequest $request, $id)
     { 
-        $data = $this->{{modelNameSingularLowerCase}}->find($id);  
+        $data = $this->cachorro->find($id);  
         if(!$data){
             return response()->json(['error'=>'Nada foi encontrado'],404) ;
         } 
-        $this->validate($request, $this->{{modelNameSingularLowerCase}}->rules());   
+        $this->validate($request, $this->cachorro->rules());   
         $dataFrom = $request->all();
         $data->update($dataFrom);  
         return response()->json($data,201) ;                     
@@ -43,7 +43,7 @@ class {{modelName}}Controller extends Controller
 
     public function destroy($id)
     {
-        $data = $this->{{modelNameSingularLowerCase}}->find($id);
+        $data = $this->cachorro->find($id);
         if(!$data){
             return response()->json(['error'=>'Nada foi encontrado'],404) ;
         }

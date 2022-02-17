@@ -10,4 +10,7 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::resource('valorants', App\Http\Controllers\ValorantController::class);
+ Route::resource('cachorros',App\Http\Controllers\CachorroController::class);
+ 
+ Route::resource('gatos',App\Http\Controllers\GatoController::class);
+ Route::resource('ratos',App\Http\Controllers\RatoController::class);
