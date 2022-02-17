@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PlaceRequest extends FormRequest
+class ContaRequest extends FormRequest
 {
     public function authorize()
     {

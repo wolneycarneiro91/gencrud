@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('places', function (Blueprint $table) {
-            $table->id();
+        Schema::create('descritoralfas', function (Blueprint $table) {
+            $table->id();            
+            $table->string('descricao');
+            $table->integer('numero_alfa');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('places');
+        Schema::dropIfExists('descritoralfas');
     }
 };

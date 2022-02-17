@@ -15,7 +15,7 @@ class CrudGeneratorCommand extends Command
      * @var string
      */
     protected $signature = 'crud:generator
-    {name : Class (singular) for example User}';
+    {name : Class (singular) for example User} {--fields=*}';
 
     /**
      * The console command description.
@@ -43,10 +43,12 @@ class CrudGeneratorCommand extends Command
     {
                 
         $name = $this->argument('name');
+        //$fields = $this->option('fields');
+        $fields = $this->option('fields');         
         
 
         $this->controller($name);
-        $this->model($name);
+        $this->model($name,$fields);
         $this->request($name);
 
         File::append(base_path('routes/api.php'), 'Route::resource(\'' . Str::plural(strtolower($name)) . "', '{$name}Controller');");
@@ -71,15 +73,22 @@ class CrudGeneratorCommand extends Command
         file_put_contents(app_path("/Http/Controllers/{$name}Controller.php"), $controllerTemplate);
     }
 
-    protected function model($name)
+    protected function model($name,$fields)
     {
         $modelTemplate = str_replace(
             ['{{modelName}}'],
             [$name],
             $this->getStub('Model')
-        );
-
+        );  
+        $fields = '"'.implode('","', $fields).'"'; 
+        $modelTemplate = str_replace(
+            ['{{fillable}}'],
+            [$fields],
+            $modelTemplate
+        );                
+                    
         file_put_contents(app_path("/Models/{$name}.php"), $modelTemplate);
+        
     }
 
     protected function request($name)

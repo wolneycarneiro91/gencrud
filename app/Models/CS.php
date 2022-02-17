@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class {{modelName}} extends Model
+class CS extends Model
 {
     protected $guarded = ['id'];
-    protected $fillable = [{{fillable}}];
+    protected $fillable = ["gun","agent"];
 }
