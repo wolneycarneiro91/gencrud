@@ -14,3 +14,5 @@ use Illuminate\Http\Request;
  
  Route::resource('gatos',App\Http\Controllers\GatoController::class);
  Route::resource('ratos',App\Http\Controllers\RatoController::class);
+ Route::resource('empresas',App\Http\Controllers\EmpresaController::class);
+ Route::resource('negocios',App\Http\Controllers\NegocioController::class);

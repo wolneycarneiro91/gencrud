@@ -35,7 +35,7 @@ class {{modelName}}Controller extends Controller
         if(!$data){
             return response()->json(['error'=>'Nada foi encontrado'],404) ;
         } 
-        $this->validate($request, $this->{{modelNameSingularLowerCase}}->rules());   
+        $this->validate($request, $request->rules());    
         $dataFrom = $request->all();
         $data->update($dataFrom);  
         return response()->json($data,201) ;                     

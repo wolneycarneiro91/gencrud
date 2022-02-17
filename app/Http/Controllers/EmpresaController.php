@@ -1,85 +1,54 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\EmpresaRequest;
 use App\Models\Empresa;
-use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(Empresa $empresa){
+            $this->empresa = $empresa;        
+    } 
     public function index()
+    {                           
+        $data = $this->empresa->all();
+        return response()->json($data, 201);                
+    }
+    public function store(EmpresaRequest $request)
     {
-        //
+        $this->validate($request, $request->rules());   
+        $dataFrom = $request->all();
+        $data = $this->empresa->create($dataFrom);  
+        return response()->json($data,201) ;
+    }
+    public function show($id)
+    {
+        $data = $this->empresa->find($id);
+        if(!$data){
+            return response()->json(['error'=>'Nada foi encontrado'],404) ;
+        }
+        return response()->json($data,201) ;
+    }
+    public function update(EmpresaRequest $request, $id)
+    { 
+        $data = $this->empresa->find($id);  
+        if(!$data){
+            return response()->json(['error'=>'Nada foi encontrado'],404) ;
+        } 
+        $this->validate($request, $this->empresa->rules());   
+        $dataFrom = $request->all();
+        $data->update($dataFrom);  
+        return response()->json($data,201) ;                     
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Empresa  $empresa
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Empresa $empresa)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Empresa  $empresa
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Empresa $empresa)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Empresa  $empresa
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Empresa $empresa)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Empresa  $empresa
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Empresa $empresa)
-    {
-        //
-    }
+        $data = $this->empresa->find($id);
+        if(!$data){
+            return response()->json(['error'=>'Nada foi encontrado'],404) ;
+        }
+        $data->delete();
+        return response()->json(['success'=>'Deletado com sucesso.'],201) ;        
+    }    
+    
 }
